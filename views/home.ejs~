@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <style>
+      ul {
+	  list-style-type: none;
+	  margin: 0;
+	  padding: 0;
+	  overflow: hidden;
+	  background-color: gray;
+      }
+      li {
+	  float: left;
+      }
+      li a {
+	  display: inline-block;
+	  color: white;
+	  text-align: center;
+	  padding: 14px 16px;
+	  text-decoration: none;
+      }
+      li a:hover {
+	  background-color: black;
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+      function delete_account(){
+	  $.ajax({
+              method: "POST",
+              url: '/account',
+	      data: "delete=1",
+              success: function(data){
+		  document.write(data);
+              },
+              contentType: "application/x-www-form-urlencoded"
+          });
+      }
+      function updateEmail(){
+          let get_url = "/user/update?email=" + $("#newemail").val()
+          $.ajax({
+              method: "GET",
+              url: get_url,
+              success: function(data){
+                  $("#email").html(data)
+              },
+              contentType: "application/json"
+          });
+      }
+      function showUpdateForm(){
+          let emailform = "<input type='text' value='" + $("#email").text() + "' id='newemail' />" +
+              "<input type='button' value='Submit' onclick='updateEmail()' />"
+          $("#updateemaildiv").html(emailform)
+      }
+      </script>
+  </head>
+  <body>
+    <!-- Main Menu -->
+    <ul>
+      <li><a href="/home">Home</a></li>
+      <li><a href="/logout">Logout</a></li>
+      <li><a href="#" onclick="delete_account()">Delete Account</a></li>
+    </ul>
+    
+    <h1>Welcome, <%= fullname %></h1>
+    <h2>Your email: <span id="email"><%- email %></span></h2>
+    <input type="button" value="Update" onclick="showUpdateForm()" />
+    <br />
+    <div id="updateemaildiv"></div>
+    
+  </body>
+  
+</html>

@@ -1,0 +1,9 @@
+Suppose we continued developing our application and added a feature for users to follow or friend one another. For this feature, a user can have a list of names of their own friends. The attacker wants to attack all his friends so he registered in the twitter mini app with the folowing information:
+Full Name: <script>alert(1)</script>
+Email: attacker@malicious.com
+Password: 12345
+Re-enter Password: 12345
+
+Try logging in after registering with this information and you can see that the JS code is executed once logged in since the homepage includes "Welcome, full name". "full name" will be <script>alert(1)</script>
+
+Since the twitter mini app is vulnerable, it will accept this registered information and will embed the fullname as part of the friend list of any user who has the attacker as a friend.

