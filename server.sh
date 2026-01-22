@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
+npm ci
 set +H 2>/dev/null || true # disable history expansion (safe for passwords with !)
 
 # Optional overrides:
