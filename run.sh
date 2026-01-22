@@ -1,19 +1,17 @@
+#!/usr/bin/env bash
 
 
-
-
-
-
-
-
-
+set -euo pipefail
 
 IMAGE="mohajernoei/websecurity"
-PORT="${1:-3000}"
-
-# Ensure image is present / up to date
-docker pull "${IMAGE}"
-
-
-docker run --rm -it -p "${PORT}:3000" --volume .:/app/ "${IMAGE}"
+NODE_PORT="${1:-3000}"
+WG_PORT="${2:-8080}"
+WW_PORT="${3:-9090}"
+#docker pull "${IMAGE}"
+docker run --platform=linux/amd64 --rm -it \
+  -p "${NODE_PORT}:3000" \
+  -p "${WG_PORT}:8080" \
+  -p "${WW_PORT}:9090" \
+  --volume .:/app/ \
+  "${IMAGE}" 
 

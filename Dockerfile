@@ -2,11 +2,11 @@ FROM node:20-bookworm-slim
 
 COPY package*.json ./
 
-
+COPY  webgoat-*.jar  webgoat.jar
 # OS deps: MySQL server + utilities used by setup_and_run.sh
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
-    bash curl git lsof default-mysql-server vim \
+    bash curl git lsof default-mysql-server default-jdk  vim \
  && rm -rf /var/lib/apt/lists/*
 
 RUN npm ci || npm install
@@ -32,11 +32,10 @@ COPY create_table.sql create_user.sql server.sh ./
 RUN chmod +x ./server.sh
 
 ENV CLEAN_FIRST=0
-EXPOSE 3000
+EXPOSE 8080 9090 3000
 
-# Run the setup script by default
 
- 
 
-ENTRYPOINT ["/bin/bash"]
+
+ENTRYPOINT ["/bin/bash","startup.sh"]
 
