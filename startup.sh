@@ -4,7 +4,7 @@ set -euo pipefail
 # Run WebGoat 2023.3 JAR with specified JVM options
 java \
   -jar \
-  -Duser.home=webgoat \
+  -Duser.home=. \
   -Dfile.encoding=UTF-8 \
   --add-opens java.base/java.lang=ALL-UNNAMED \
   --add-opens java.base/java.util=ALL-UNNAMED \
@@ -20,7 +20,7 @@ java \
   -Dwebwolf.host=0.0.0.0 \
   -Dwebgoat.port=8080 \
   -Dwebwolf.port=9090 \
-  webgoat-2023.3.jar >/dev/null 2>&1 &
+  /webgoat-2023.3.jar >/dev/null 2>&1 &
   
 
 /bin/bash
