@@ -7,7 +7,7 @@ const path = require('path');
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'twitter_admin',
-password: 'MyAppPassw0rd!',
+    password: 'MyAppPassw0rd!',
 
     database: 'twitter_miniapp'
 });
@@ -20,25 +20,22 @@ app.use(session({
     secret: 'your-secret-key',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Set 'secure' to true if using HTTPS
+    cookie: {secure: false} // Set 'secure' to true if using HTTPS
 }));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get('/data', function(request, response) {
-    response.json(info);
-});
 
-app.get('/', function(request, response) {
+app.get('/', function (request, response) {
     response.sendFile(path.join(__dirname, "/public/login.html"));
 });
 
-app.get('/register', function(request, response) {
+app.get('/register', function (request, response) {
     response.sendFile(path.join(__dirname, "/public/register.html"));
 });
 
-app.post('/register', function(request, response) {
+app.post('/register', function (request, response) {
     let email = request.body.email;
     let password = request.body.password;
     let fullname = request.body.fullname;
@@ -48,7 +45,7 @@ app.post('/register', function(request, response) {
     console.log(q);
 
     if (email && password && fullname) {
-        connection.query(q, function(error, results, fields) {
+        connection.query(q, function (error, results, fields) {
             if (error) throw error;
             response.send('Registered Successfully');
         });
@@ -56,6 +53,68 @@ app.post('/register', function(request, response) {
         response.send("Please enter Fullname, Password and Email!");
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.post('/auth', function (request, response) {
     let email = request.body.email;
@@ -67,7 +126,9 @@ app.post('/auth', function (request, response) {
     // Ensure both email and password are provided
     if (email && password) {
         // Execute the SQL query
-        connection.query(q, function(error, results, fields) {
+        connection.query(q, function (error, results, fields) {
+
+            //results = [ { email: "alice@example.com", fullname: "Alice Smith", password: "$2a$10$..." } ]
             if (error) throw error;
             if (results.length > 0) {
                 // Set session variables
@@ -88,20 +149,50 @@ app.post('/auth', function (request, response) {
     }
 });
 
-app.get('/home', function(request, response) {
+
+app.get('/home', function (request, response) {
     if (request.session.loggedin === true) {
-        response.render('home', { email: request.session.email, fullname: request.session.fullname });
+        response.render('home', {email: request.session.email, fullname: request.session.fullname});
     } else {
         response.send('Please <a href="/">login</a> to view this page!');
     }
 });
 
-app.get('/user/update', function(request, response) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.get('/user/update', function (request, response) {
     if (request.session.loggedin === true) {
         let new_email = request.query.email;
         let q = "UPDATE users SET email = '" + new_email + "' WHERE email = '" + request.session.email + "'";
         if (new_email) {
-            connection.query(q, function(error, results, fields) {
+            connection.query(q, function (error, results, fields) {
                 if (error) throw error;
                 request.session.email = new_email;
                 response.send(new_email);
@@ -111,6 +202,7 @@ app.get('/user/update', function(request, response) {
         response.send('Unauthorized action!');
     }
 });
+
 
 app.post('/account', function (request, response) {
     console.log("Received request to delete account.");
@@ -139,7 +231,10 @@ app.post('/account', function (request, response) {
 });
 
 
-app.get('/logout', function(request, response) {
+
+
+
+app.get('/logout', function (request, response) {
     if (request.session.loggedin === true) {
         request.session.loggedin = false;
         response.redirect('/');
@@ -147,6 +242,7 @@ app.get('/logout', function(request, response) {
         response.redirect('/');
     }
 });
+
 
 app.listen(3000);
 
