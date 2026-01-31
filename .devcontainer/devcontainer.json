@@ -1,6 +1,0 @@
-{
-  "name": "twitter_miniapp",
-  "build": { "dockerfile": "../Dockerfile" },
-  "forwardPorts": [3000],
-  "postStartCommand": "bash ./server.sh"
-}
